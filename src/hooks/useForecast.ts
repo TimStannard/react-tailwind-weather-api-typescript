@@ -1,12 +1,12 @@
 import { useState, useEffect, ChangeEvent } from "react"
-import { optionType } from '../types'
+import { optionType, forecastType } from '../types'
 
 const useForecast = () => {
     // declare our state type as string. try setting the default to 0 to test getting an error
     const [term, setTerm] = useState<string>('')
     const [city, setCity] = useState<optionType | null>(null)
     const [options, setOptions] = useState<[]>([])
-    const [forecast, setForecast] = useState<null>(null)
+    const [forecast, setForecast] = useState<forecastType | null>(null)
 
     const getSearchOptions = (value: string) => {
         // using envs in vite
@@ -30,9 +30,18 @@ const useForecast = () => {
     }
 
     const getForecast = (city: optionType) => {
-        fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${city.lat}&lon=${city.lon}&units=metric&appid=${import.meta.env.VITE_APP_API_KEY}`)
+        fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${city.lat}&lon=${city.lon}&units=metric&appid=${import.meta.env.VITE_APP_API_KEY}`)
             .then(res => res.json())
-            .then((data) => setForecast(data))
+            .then((data) => {
+                console.log({ data });
+
+                const forecastData = {
+                    ...data.city,
+                    list: data.list.slice(0, 16)
+                }
+                console.log(forecastData);
+                setForecast(forecastData)
+            })
     }
 
     const onSubmit = () => {
