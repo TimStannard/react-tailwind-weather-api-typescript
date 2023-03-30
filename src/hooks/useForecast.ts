@@ -8,6 +8,13 @@ const useForecast = () => {
     const [options, setOptions] = useState<[]>([])
     const [forecast, setForecast] = useState<forecastType | null>(null)
 
+    const resetCity = () => {
+        setForecast(null)
+        setCity(null)
+        setTerm('')
+        setOptions([])
+    }
+
     const getSearchOptions = (value: string) => {
         // using envs in vite
         // https://vitejs.dev/guide/env-and-mode.html
@@ -67,7 +74,8 @@ const useForecast = () => {
         forecast,
         onInputChange,
         onOptionSelect,
-        onSubmit
+        onSubmit,
+        resetCity
     }
 
 }

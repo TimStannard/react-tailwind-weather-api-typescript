@@ -1,6 +1,7 @@
 import { ChangeEvent } from "react"
 import { optionType } from "../types"
 
+
 type Props = {
     term: string
     options: []
@@ -35,7 +36,10 @@ const Search = ({
                         </li>
                     )}
                 </ul>
-                <button className="rounded-r-md border-2 border-zinc-100 hover:bg-blue-700  text-white px-2 py-1 cursor-pointer" onClick={onSubmit}>Search</button>
+                <button className="rounded-r-md border-2 border-zinc-100 hover:bg-blue-700  text-white px-2 py-1 cursor-pointer"
+                    onClick={() => { onSubmit() }}
+                >Search
+                </button>
             </div>
         </section>
     )

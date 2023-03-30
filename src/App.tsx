@@ -1,5 +1,10 @@
+import { useState } from "react"
+// components
 import Search from "./components/Search"
+import Forecast from "./components/Forecast"
+// hooks
 import useForecast from "./hooks/useForecast"
+
 
 const App = (): JSX.Element => {
   // grab all variables and functions from useForecast custom hook
@@ -9,13 +14,17 @@ const App = (): JSX.Element => {
     forecast,
     onInputChange,
     onOptionSelect,
-    onSubmit
+    onSubmit,
+    resetCity
   } = useForecast()
 
   return (
     <main className="flex justify-center items-center bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 h-[100vh] w-full">
       {forecast ? (
-        forecast.sunrise
+        <Forecast
+          data={forecast}
+          reset={resetCity}
+        />
       ) : (
         <Search
           term={term}
